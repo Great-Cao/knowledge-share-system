@@ -1,0 +1,40 @@
+{% extends 'AppBundle:User:index.html.twig' %}
+
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+            {% block navTabs %}
+                <ul class="nav nav-tabs">
+                    <li role="newknowledge"><a href="{{path('user_page', {userId:user.id})}}">他的分享</a></li>
+                    <li role="myconcern" class="active"><a href="{{path('user_follows', {userId:user.id ,type:'topic'})}}">他的关注</a></li>
+                    <li role="topic"><a href="{{path('user_favorites', {userId:user.id})}}">他的收藏</a></li>
+                </ul>
+                <br>
+            {% endblock %}
+            <div class="row" id="topic-tables">
+              <ul class="nav nav-tabs">
+                <li role="topic" {% if (type == 'topic') %} class="active" {% endif %}><a href="{{path('user_follows', {userId:user.id ,type:'topic'})}}">他关注的主题</a></li>
+                <li role="share" {% if (type == 'user') %} class="active" {% endif %}><a href="{{path('user_follows', {userId:user.id ,type:'user'})}}">他关注的用户</a></li>
+              </ul>
+              {% if objects is defined and objects %}
+                {% for object in objects %}
+                  {% if (type == 'user') %}
+                    {% set user = object %}
+                    {% include "AppBundle:MyKnowledgeShare:single-follow-users-list.html.twig" %}
+                  {% elseif (type == 'topic') %}
+                    {% set topic = object %}
+                    {% include "AppBundle:Topic:single-topic-list.html.twig" %}
+                  {% endif %}
+                {% endfor %}
+              {% else %}
+                <div class="panel-title" style="padding-top:20px;">
+                  <h4 align="center">---暂无记录---</h4>
+                </div>
+              {% endif %}
+            </div>
+            </div>
+              {{ web_macro.paginator(paginator) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

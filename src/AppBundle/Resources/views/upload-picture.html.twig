@@ -1,0 +1,38 @@
+{% extends 'AppBundle::modal-base.html.twig' %}
+{% block title %}
+  上传图片
+{% endblock %}
+{% block body %}
+  <form id="upload-picture-form" class="form-horizontal" enctype="multipart/form-data" method="post" action="{{path('picture_upload')}}">
+    <div class="form-group">
+      <div class="col-md-3 control-label"><b>当前头像</b></div>
+      <div id="picture-preview">
+        {% if app.user.imageUrl is defined and app.user.imageUrl %}
+          <img src="{{asset(app.user.imageUrl)}}" alt="用户上传头像加载失败">
+          {% else %}
+          <img src="{{asset('bundles/app/img/default-user-image.png')}}" alt="默认图片加载失败">
+        {% endif %}
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-2 control-label"></div>
+      <div class="controls col-md-8 controls">
+        <p class="help-block">你可以上传jpg,gif,png格式的文件，大小不超过<strong>2M</strong></p>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-2 control-label"></div>
+      <div class="controls col-md-8 controls">
+        <input type="file" name="photo" id="inputImage" accept="image/*">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-md-2 control-label"></div>
+      <div id="tip-message"></div>
+    </div>
+  </form>
+{% endblock %}
+{% block footer %}
+  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+  <button type="submit" id="upload-picture-btn" class="btn btn-primary pull-right" data-toggle="form-submit" data-target="#upload-picture-form" data-submiting-text="正在提交">保存</button>
+{% endblock %}

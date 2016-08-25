@@ -1,0 +1,5 @@
+{% if app.user.imageUrl is defined and app.user.imageUrl %}
+        <img src="{{ asset(user.imageUrl) }}" id="user-image" alt="User Image">
+    {% else %}
+        <img src="{{asset('bundles/app/img/default-user-image.png')}}" id="user-image" alt="User Image">
+{% endif %}

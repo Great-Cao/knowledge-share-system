@@ -1,0 +1,51 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block aside %}
+    {% include 'AppBundle::aside.html.twig' %}
+{% endblock %}
+{% block left_header %}
+    {% include 'AppBundle::left-header.html.twig' %}
+{% endblock %}
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+            {% block navTabs %}
+                {% include 'AppBundle::search-nav.html.twig' %}
+            {% endblock %}
+            <div class="row" id="knowledge-list">
+                {% if searchType == 'topic'%}
+                    {% if topics is defined and topics %}
+                        {% for topic in topics %}
+                            {% include "AppBundle:Topic:single-topic-list.html.twig" %}
+                        {% endfor %}
+                    {% else %}
+                        <br>
+                        <div class="panel-title"><h4 align="center">---暂无记录---</h4></div>
+                    {% endif %}
+                {% elseif searchType == 'user' %}
+                    {% if users is defined and users %}
+                        {% for user in users %}
+                            {% include "AppBundle:Default:single-user-list.html.twig" %}
+                        {% endfor %}
+                    {% else %}
+                        <br>
+                        <div class="panel-title"><h4 align="center">---暂无记录---</h4></div>
+                    {% endif %}
+                {% else %}
+                    {% if knowledges is defined and knowledges %}
+                        {% for knowledge in knowledges %}
+                            {% if knowledge.toread is not defined %}
+                                {% set user = users[knowledge.userId]|default(null) %}
+                                {% set knowledgeTag = knowledgeTags[knowledge.id].knowledgeTag|default(null) %}
+                                {% include "AppBundle:Default:single-knowledge-list.html.twig" %}
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <br>
+                        <div class="panel-title"><h4 align="center">---暂无记录---</h4></div>
+                    {% endif %}
+                {% endif %}
+            </div>
+            {{ web_macro.paginator(paginator) }}
+        </div>
+    </div>
+{% endblock %}

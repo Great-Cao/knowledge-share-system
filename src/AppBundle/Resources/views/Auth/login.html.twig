@@ -1,0 +1,37 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block body %}
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="{{path('homepage')}}">知识共享系统</a>
+        </div>
+        <div class="login-box-body">
+            {% if error %}
+                <p class="login-box-msg">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+            {% endif %}
+            <form action="{{ path('login_check') }}" method="post">
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" placeholder="用户名">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" placeholder="密码" id="password" name="_password">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                {{ form_csrf_token() }}
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="_remember_me" checked /> 记住密码
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">登陆</button>
+                    </div>
+                </div>
+            </form>
+            <a href="{{ path('register') }}" class="text-center">注册一个账号</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'AppBundle::modal-base.html.twig'%}
+{% block title %}
+  编辑知识
+{% endblock %}
+{% block body %}
+  <form id="knowledge-edit-form" action="{{path('my_knowledge_share_edit',{id:knowledge.id})}}" method="post" class="form-horizontal">
+    <div class="form-group">
+      <label for="title" class="col-sm-3 control-label">标题</label>
+      <div class="col-md-6 controls">
+        <input type="text" class="form-control" id="title" name="title" value="{{knowledge.title}}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="summary" class="col-sm-3 control-label">摘要</label>
+      <div class="col-md-6 controls">
+        <input type="text" class="form-control" id="summary" name="summary" value="{{knowledge.summary}}">
+      </div>
+    </div>
+  </form>
+{% endblock %}
+{% block footer %}
+  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+  <button type="submit" id="knowledge-edit-btn" class="btn btn-primary pull-right" data-toggle="form-submit" data-target="#knowledge-edit-form" data-submiting-text="正在提交">保存</button>
+{% endblock %}  

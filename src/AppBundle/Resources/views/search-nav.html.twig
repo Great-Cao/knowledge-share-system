@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs">
+    <li role="presentation" {% if searchType == 'knowledge' %}class="active" {% endif %}><a href="{{path('search_info', {searchType:'knowledge'})}}&query={{ query }}">知识</a></li>
+    <li role="presentation" {% if searchType == 'user' %} class="active" {% endif %}><a href="{{path('search_info', {searchType:'user'})}}&query={{ query }}">用户</a></li>
+    <li role="presentation" {% if searchType == 'topic' %} class="active" {% endif %}><a href="{{path('search_info', {searchType:'topic'})}}&query={{ query }}">主题</a></li>
+</ul>

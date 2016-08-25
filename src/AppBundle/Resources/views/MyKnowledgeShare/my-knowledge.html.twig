@@ -1,0 +1,41 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block aside %}
+  {% include 'AppBundle::aside.html.twig' %}
+{% endblock %}
+{% block base_content %} 
+  <div class="content">
+    <div class="content-block new-content">
+      {% block navTabs %}
+        {% include 'AppBundle::knowledge-library-nav.html.twig' %}
+      {% endblock %}
+      <div class="row">
+        {% if knowledges %} 
+          {% for knowledge in knowledges %}
+            <div class="news-list">
+              <div class="news-info col-xs-12 col-sm-12 col-md-11">
+                <dl>
+                  <dt>
+                    <h4>
+                    <a href="{{path('knowledge_detail',{id:knowledge.id})}}">
+                      {% if knowledge.type == 'file' %}<i class="fa fa-sticky-note-o"></i>{% elseif knowledge.type == 'link' %}<i class="fa fa-link"></i>{% endif %}&nbsp&nbsp{{knowledge.title|slice(0,20)}}
+                    </a>
+                    </h4>
+                  </dt>
+                  <span style="float:right">
+                    <a class="btn btn-primary fa fa-edit edit-btn" data-url="{{path('my_knowledge_share_edit',{id:knowledge.id})}}"></a>
+                    <a class="btn btn-default fa fa-trash delete-btn" data-url="{{path('my_knowledge_share_delete',{id: knowledge.id})}}"></a>
+                  </span>
+                </dl>
+              </div>
+            </div>  
+          {% endfor %}
+        {% else %}
+          <div class="panel-title">
+            <h4 align="center">---暂无记录---</h4>
+          </div>
+        {% endif %}
+      </div>
+  </div>
+  {{ web_macro.paginator(paginator) }}
+  </div>  
+{% endblock %}

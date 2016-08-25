@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="{{ asset('bundles/app/css/toplist.css') }}">
+<div class="top-knowledge">
+  <div class="box">
+    <div class="box-header">
+      <h3 class="box-title">热门知识</h3>
+
+      <div class="box-tools">
+        <ul class="pagination pagination-sm no-margin pull-right">
+          <li class="active" id="like-knowledge"><a><i class="fa fa-fw fa-thumbs-o-up"></i></a></li>
+          <li id="favorite-knowledge"><a><i class="fa fa-fw fa-star-o"></i></a></li>
+          <li id="view-knowledge"><a><i class="fa fa-fw fa-eye"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body no-padding">
+      <table class="table list-top" id="like-knowledge-list">
+        {% for likeKnowledge in likeKnowledges %}
+          <tr>
+            <td>{{loop.index}}</td>
+            <td><a href="{{path('knowledge_detail',{id:likeKnowledge.id})}}">{{likeKnowledge.title |slice(0,12) }}</a></td>
+            <td><i class="fa fa-fw fa-thumbs-o-up"></i>{{likeKnowledge.likeNum}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+      <table class="table list-top" id="favorite-knowledge-list" style="display:none">
+        {% for favoriteKnowledge in favoriteKnowledges %}
+          <tr>
+            <td>{{loop.index}}</td>
+            <td><a href="{{path('knowledge_detail',{id:favoriteKnowledge.id})}}">{{favoriteKnowledge.title |slice(0,12)}}</a></td>
+            <td><i class="fa fa-fw fa-star-o"></i>{{favoriteKnowledge.favoriteNum}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+      <table class="table list-top" id="view-knowledge-list" style="display:none">
+        {% for viewKnowledge in viewKnowledges %}
+          <tr>
+            <td>{{loop.index}}</td>
+            <td><a href="{{path('knowledge_detail',{id:viewKnowledge.id})}}">{{viewKnowledge.title |slice(0,12)}}</a></td>
+            <td><i class="fa fa-fw fa-eye"></i>{{viewKnowledge.viewNum}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <!-- /.box-body -->
+  </div>
+
+</div>

@@ -1,0 +1,18 @@
+#picture-preview, .img,img{
+    width:300px;  
+    height:300px;  
+}
+#picture-preview{
+    border:1px solid #000; 
+    margin: auto;
+}
+.dropdown-toggle #user-image{
+    width:18px;  
+    height:18px; 
+    border-radius: 9px;
+}
+ul .user-header #user-image{
+    width:100px;  
+    height:100px; 
+    border-radius: 50px;
+}

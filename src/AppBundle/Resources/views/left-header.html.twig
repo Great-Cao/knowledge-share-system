@@ -1,0 +1,42 @@
+<style type="text/css">
+#left-side-bar > li > ul > li{
+  border:none;
+}
+</style>
+<ul class="nav hidden-xs-nav nav-pills nav-stacked" id="left-side-bar">
+  <li class="">
+    <ul class="list-group">
+      <li class="list-group-heading" style="padding: 10px 15px;"> <i class="fa fa-book">&nbsp;&nbsp;
+        知识广场</i> 
+      </li>
+      <li class=" list-group-item" {% if type is defined and type == 'newKnowledge' %} style="border:none;border-left:solid 4px #46c37b;color:#46c37b;" {% endif %} >
+        <span style="padding-left:21px;"><a href="{{path('homepage')}}">最新知识</a></span>
+      </li>
+      <li class="list-group-item" {% if type is defined and type == 'allTopics' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+        <span style="padding-left:21px;"><a href="{{path('topic')}}">主题</a></span>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <ul class="list-group">
+      <li class="list-group-heading" style="padding: 10px 15px;"> <i class="fa fa-book">&nbsp;&nbsp;
+        我的知识库</i> 
+      </li>
+      <li class="list-group-item" {% if type is defined and type == 'toDoList' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+        <span style="padding-left:21px;"><a href="{{path('my_knowledge_share_todolist')}}">待读列表</a></span>
+      </li>
+      <li class="list-group-item" {% if type is defined and type == 'myKnowledge' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+        <span style="padding-left:21px;"><a href="{{path('my_knowledge_share')}}">我的分享</a></span>
+      </li>
+      <li class="list-group-item" {% if type is defined and type == 'myFavorite' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+        <span style="padding-left:21px;"><a href="{{path('my_favorites')}}">我的收藏</a></span>
+      </li>
+      <li class="list-group-item" {% if type is defined and type == 'topic' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+        <span style="padding-left:21px;"><a href="{{path('my_follows', {type:'topic'})}}">我的关注</a></span>
+      </li>
+      <li class="list-group-item" {% if type is defined and type == 'history' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+        <span style="padding-left:21px;"><a href="{{path('my_learn_history')}}">学习记录</a></span>
+      </li>
+    </ul>
+  </li>
+</ul>

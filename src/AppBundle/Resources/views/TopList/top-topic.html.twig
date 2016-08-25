@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="{{ asset('bundles/app/css/toplist.css') }}">
+<div class="top-topic">
+  <div class="box">
+    <div class="box-header">
+      <h3 class="box-title">热门主题</h3>
+
+      <div class="box-tools">
+        <ul class="pagination pagination-sm no-margin pull-right">
+          <li class="active" id="follow-topic"><a><i class="fa fa-fw fa-heart-o"></i></a></li>
+          <li id="knowledge-topic"><a><i class="fa fa-fw fa-file-o"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body no-padding">
+      <table class="table list-top" id="follow-topic-list">
+        {% for followTopic in followTopics %}
+          <tr>
+            <td>{{loop.index}}</td>
+            {% if followTopic.name is empty %}
+              <td><a href="javascript:;"></a></td>
+            {% else %}
+              <td><a href="{{ path('topic_knowledge', {id:followTopic.id, name:followTopic.name}) }}">{{followTopic.name |slice(0,12)}}</a></td>
+            {% endif %}
+            <td><i class="fa fa-fw fa-heart-o"></i>{{followTopic.followNum}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+      <table class="table list-top" id="knowledge-topic-list" style="display:none">
+        {% for knowledgeTopic in knowledgeTopics %}
+          <tr>
+            <td>{{loop.index}}</td>
+            {% if knowledgeTopic.name is empty %}
+              <td><a href="javascript:;"></a></td>
+            {% else %}
+              <td><a href="{{ path('topic_knowledge', {id:knowledgeTopic.id, name:knowledgeTopic.name}) }}">{{knowledgeTopic.name |slice(0,12)}}</a></td>
+            {% endif %}
+            <td><i class="fa fa-fw fa-file-o"></i>{{knowledgeTopic.knowledgeNum}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <!-- /.box-body -->
+  </div>
+</div>
+{% block javascripts %}
+    {% for path in script()  %}
+    <script src="{{ asset( 'assets/' ~ path) }}"></script>
+    {% endfor %}
+    <script src="{{ asset('bundles/app/js/toplist/toplist.js') }}"></script>
+{% endblock %}

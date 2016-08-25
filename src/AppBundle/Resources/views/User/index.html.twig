@@ -1,0 +1,59 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block left_header %}
+    <div class="box box-primary">
+      <div class="box-body box-profile">
+        <img class="profile-user-img img-responsive img-circle" src="{{ asset(user.imageUrl) }}">
+
+        <h3 class="profile-username text-center">昵称：{{ user.username }}</h3>
+
+        <ul class="list-group list-group-unbordered" id="user">
+          <li class="list-group-item">
+            <b>分享知识数</b> <a class="pull-right">{{ knowledgesCount }}</a>
+          </li>
+          <li class="list-group-item">
+            <b>收藏数</b> <a class="pull-right">{{ favoritesCount }}</a>
+          </li>
+          <li class="list-group-item">
+            <b>积分</b> <a class="pull-right">{{ user.score }}</a>
+          </li>
+          <li class="list-group-item" id="follow-user-btn" data-url="{{path('user_follow',{id:user.id})}}"　{% if hasfollowed is defined and hasfollowed == true %} style="display:none"{% endif %}>
+          <b>关注</b> <a class="pull-right"><i class="fa fa-fw fa-heart-o"></i></a>
+          </li>
+          <li class="list-group-item" id="unfollow-user-btn" data-url="{{path('user_unfollow',{id:user.id})}}" {% if hasfollowed is defined and hasfollowed == false %}style="display:none"{% endif %}>
+          <b>已关注</b> <a class="pull-right" ><i class="fa fa-fw fa-heart"></i></a>
+          </li>
+        </ul>
+      </div>
+      <!-- /.box-body -->
+    </div>
+{% endblock %}
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+            {% block navTabs %}
+                <ul class="nav nav-tabs">
+                    <li role="newknowledge" class="active"><a href="{{path('user_page', {userId:user.id})}}">他的分享</a></li>
+                    <li role="myconcern"><a href="{{path('user_follows', {userId:user.id ,type:'topic'})}}">他的关注</a></li>
+                    <li role="topic"><a href="{{path('user_favorites', {userId:user.id})}}">他的收藏</a></li>
+                </ul>
+                <br>
+            {% endblock %}
+            <div class="row" id="knowledge-list">
+                {% if knowledges is defined and knowledges %}
+                    {% for knowledge in knowledges %}
+                      {% if knowledge.toread is not defined %}
+                        {% set knowledgeTag = knowledgeTags[knowledge.id].knowledgeTag|default(null) %}
+                        {% include "AppBundle:Default:single-knowledge-list.html.twig" %}
+                      {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="panel-title"><h4 align="center">---暂无记录---</h4></div>
+                {% endif %}
+            </div>
+            </div>
+              {{ web_macro.paginator(paginator) }}
+            </div> 
+        </div>
+    </div>
+{% endblock %}

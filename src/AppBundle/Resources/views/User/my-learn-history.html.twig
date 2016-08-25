@@ -1,0 +1,24 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block aside %}
+  {% include 'AppBundle::aside.html.twig' %}
+{% endblock %}
+{% block base_content %} 
+  <div class="content">
+    <div class="content-block new-content">
+      {% block navTabs %}
+      {% endblock %}
+      <div class="row" id="knowledge-list">
+        {% if knowledges is defined and knowledges %}
+          {% for knowledge in knowledges %}
+            {% set user = users[knowledge.userId]|default(null) %}
+            {% set knowledgeTag = knowledgeTags[knowledge.id].knowledgeTag|default(null) %}
+              {% include "AppBundle:MyKnowledgeShare:single-knowledge-todolist.html.twig" %}
+            {% endfor %}
+          {% else %}
+            <div class="panel-title"><h4 align="center">---暂无学习记录---</h4></div>
+          {% endif %}
+      </div>
+    </div>
+  {{ web_macro.paginator(paginator) }}
+  </div>  
+{% endblock %}

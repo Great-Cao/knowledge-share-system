@@ -1,0 +1,34 @@
+<form method="post" action="">
+	<div class="input-group margin">
+		<input type="text" class="form-control" name="comment">
+        {{ form_csrf_token() }}
+	    <span class="input-group-btn">
+	      <button type="botton" class="btn btn-info btn-flat" id="comment" data-url="{{ path('knowledge_create_comment') }}" data-id="{{ knowledge.id }}">评论</button>
+	    </span>
+	</div>
+</form>
+{% if comments %}
+  {% for comment in comments %}
+   <div class="box-footer box-comments">
+    <div class="box-comment">
+      <!-- User image -->
+      <img class="img-circle img-sm" src="{{ asset(users[comment.userId].imageUrl) }}" alt="User Image">
+      <div class="comment-text">
+            <span class="username">
+              {{ users[comment.userId].username }}
+              <span class="text-muted pull-right">{{ comment.createdTime|date('Y年m月d日') }}</span>
+            </span><!-- /.username -->
+        {{ comment.value }}
+      </div>
+      <!-- /.comment-text -->
+    </div>
+   </div>
+  {% endfor %}
+{% else %}
+    <div class="panel-title">
+      <h4 align="center">---暂无评论---</h4>
+    </div>
+{% endif %}
+{% if paginator|default(null) %}
+  {{ web_macro.paginator(paginator) }}
+{% endif  %}

@@ -1,0 +1,19 @@
+<div class="news-list">
+    <div class="news-info col-xs-12 col-sm-12 col-md-11">
+        <dl>
+            <dd>
+                <h3 class="box-title"><a href="#">{{ user.username }}</a></h3>
+            </dd>
+        </dl>
+        <div class="news_bot col-sm-7 col-md-8">
+          <span class="look">
+              <a class="pull-right" id="follow-btn">
+                  关注者<span>{{ user.followNum }}</span>&nbsp;
+                  知识分享总数<span>{{ user.knowledgeNum}}</span>&nbsp;
+                  学习数量<span>{{ user.browseNum}}</span>&nbsp;
+                  积分<span>{{ user.score}}</span>
+              </a>
+          </span>
+        </div>
+    </div>
+</div>

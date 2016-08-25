@@ -1,0 +1,15 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+            <div class="row">
+                {% include 'AppBundle:Knowledge:detail-box.html.twig' %}
+                {% include 'AppBundle:Knowledge:comment.html.twig' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block aside %}
+    {% include 'AppBundle::aside.html.twig' %}
+{% endblock %}

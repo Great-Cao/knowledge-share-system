@@ -1,0 +1,133 @@
+<header class="main-header">
+  <nav class="navbar navbar-static-top">
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <li style="margin-right: 20px;">
+          <form class="navbar-form navbar-left" action="{{ path('search_info') }}" method="get" style="padding-top:0px;padding-left:20px">
+            <div class="input-group">
+              <input type="hidden" name="searchType" {% if searchType is defined and searchType %} value="{{ searchType }}" {% else %} value="knowledge"{% endif %}>
+              <input type="text" class="form-control" name="query" size="30" placeholder="搜索感兴趣的知识...">
+              <span class="input-group-btn">
+                <button class="btn btn-default btn-search" type="submit"> <i class="fa fa-fw fa-search"></i>
+                </button>
+              </span>
+            </div>
+          </form>
+        </li>
+        <li class="pull-right">
+          <div class="navbar-header header-xs-logo">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-xs-menu" aria-expanded="false" aria-controls="navbar"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
+          </div>
+        </li>
+        {% if app.user %}
+          <li class="dropdown user user-menu pull-right">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            {{ render(controller('AppBundle:Base:imagePath')) }}
+            <span class="hidden-xs">{{ app.user.username }}</span>
+            </a>
+              <ul class="dropdown-menu">
+                <li class="user-header">
+                  {{ render(controller('AppBundle:Base:imagePath')) }}
+                    <p>
+                    {{ app.user.username }}
+                    <small>{{ app.user.created |date('l,F,j,Y') }}</small>
+                    </p>
+                </li>
+                <li class="user-body">
+                  <div class="row">
+                    <div class="col-xs-4 text-center">
+                      <i class="fa fa-fw fa-heart" title="被关注数"></i>{{ app.user.followNum }}
+                    </div>
+                    <div class="col-xs-4 text-center">
+                      <i class="fa fa-book"　title="分享知识数"></i>
+                      {{ app.user.knowledgeNum }}
+                    </div>
+                    <div class="col-xs-4 text-center">
+                      <i class="fa  fa-graduation-cap" title="学过知识数"></i>
+                      {{ app.user.browseNum }}
+                    </div>
+                  </div>
+                </li>
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a data-url="{{path('picture_upload')}}" class="btn btn-default btn-flat" id="user-setting">设置</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="{{ path('logout') }}" class="btn btn-default btn-flat">退出</a>
+                  </div>
+                </li>
+              </ul>
+          </li>
+        {% else %}
+          <li class="pull-right">
+            <a href="{{ path('register') }}">
+              <span>
+                注册
+              </span>
+            </a>
+          </li>
+          <li class="pull-right">
+            <a href="{{ path('login') }}">
+              <span>
+                登陆
+              </span>
+            </a>
+          </li>
+        {% endif %}
+        {% if app.user %}
+          <li class="dropdown pull-right">
+            <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <i class="fa fa-plus"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="addTable">
+              <li><a href="#" class="btn btn-lg" id="docModal" data-url="{{path('doc_modal')}}">文档</a></li>
+              <li><a href="#" class="btn btn-lg" id="linkModal" data-url="{{path('link_modal')}}">链接</a></li>
+            </ul>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+</header>
+<div class="visible-xs header-xs">
+    <!--超小屏幕可见-->
+  <div id="header-xs-menu" class="navbar-collapse collapse">
+    <ul class="nav navbar-nav header-xs-nav">
+      <li>
+        <ul class="list-group">
+          <li class="list-group-heading-first" style="padding: 10px 15px; cursor: pointer;"> <i class="fa fa-book">&nbsp;&nbsp;
+              知识广场</i>
+          </li>
+          <li class="list-group-item" {% if type is defined and type == 'newKnowledge' %} style="border:none;border-left:solid 4px #46c37b;color:#46c37b;" {% endif %} >
+            <span style="padding-left:21px;"><a href="{{path('homepage')}}">最新知识</a></span>
+          </li>
+          <li class="list-group-item" {% if type is defined and type == 'allTopics' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+            <span style="padding-left:21px;"><a href="{{path('topic')}}">主题</a></span>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <ul class="list-group">
+          <li class="list-group-heading-second" style="padding: 10px 15px;cursor: pointer;"> <i class="fa fa-book">&nbsp;&nbsp;
+              我的知识库</i>
+          </li>
+          <li class="list-group-item" {% if type is defined and type == 'toDoList' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+            <span style="padding-left:21px;"><a href="{{path('my_knowledge_share_todolist')}}">待读列表</a></span>
+          </li>
+          <li class="list-group-item" {% if type is defined and type == 'myKnowledge' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+            <span style="padding-left:21px;"><a href="{{path('my_knowledge_share')}}">我的分享</a></span>
+          </li>
+          <li class="list-group-item" {% if type is defined and type == 'myFavorite' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+            <span style="padding-left:21px;"><a href="{{path('my_favorites')}}">我的收藏</a></span>
+          </li>
+          <li class="list-group-item" {% if type is defined and type == 'topic' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+            <span style="padding-left:21px;"><a href="{{path('my_follows', {type:'topic'})}}">我的关注</a></span>
+          </li>
+          <li class="list-group-item" {% if type is defined and type == 'history' %}style="border:none;border-left:solid 4px #46c37b;color:#46c37b;"{% endif %}>
+            <span style="padding-left:21px;"><a href="{{path('my_learn_history')}}">学习记录</a></span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+.navigation {
+    margin-top: 55px; 
+}
+.current_page_item{
+    background: #2980b9;
+    color: rgba(255,255,255,1);
+}

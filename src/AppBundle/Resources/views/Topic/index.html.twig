@@ -1,0 +1,22 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block base_content %}
+    <div class="content">
+        <div class="content-block new-content">
+            <div class="row" id="topic-tables">
+                {% if topics is defined and topics %}
+                    {% for topic in topics %}
+                        {% include "AppBundle:Topic:single-topic-list.html.twig" %}
+                    {% endfor %}
+                {% else %}
+                    <div class="panel-title"><h4 align="center">---暂无记录---</h4></div>
+                {% endif %}
+            </div>
+            </div>
+              {{ web_macro.paginator(paginator) }}
+            </div>  
+        </div>
+    </div>
+{% endblock %}
+{% block aside %}
+    {% include 'AppBundle::aside.html.twig' %}
+{% endblock %}

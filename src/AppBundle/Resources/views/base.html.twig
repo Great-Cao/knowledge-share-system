@@ -1,0 +1,87 @@
+{% import "AppBundle::macro.html.twig" as web_macro %}
+<!DOCTYPE html>
+{{ script(['js/vendor.js', 'js/global.js'])}}
+{{ css('css/vendor.css') }}
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta content="{{ csrf_token(default_csrf_token_id) }}" name="csrf-token" />
+    <title>{% block title %}知识分享系统{% endblock %}</title>
+    {% block stylesheets %}
+        {% for path in css() %}
+            <link href="{{ asset('assets/' ~ path) }}" rel="stylesheet" />
+        {% endfor %}
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.icon') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/base.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/base-header.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/knowledge.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/app/css/picture.css') }}">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+{% block body %}
+    <section class="container user-select">
+        {% block top_header %}
+        {% include 'AppBundle::header.html.twig' %}
+        {% endblock %}
+        <div id="uploadModal" class="modal"></div>
+        <!--左边模块-->
+        <div>
+            <div class="hidden-xs header">
+                <div class="main-header">
+                    <a href="{{path('homepage')}}" class="logo">
+                        <span class="logo-lg"><b>知识分享系统</b></span>
+                    </a>
+                </div>
+                {% block left_header %}
+                    {% include 'AppBundle::left-header.html.twig' %}
+                {% endblock %}
+            </div>
+        </div>
+        <!--/左边模块-->
+        <div class="content-wrap">
+            <!--内容-->
+            {% block base_content %}
+            <div class="content">
+                <div class="content-block new-content">
+                    {% block navTabs %}
+
+                    {% endblock %}
+                </div>
+            </div>
+            {% endblock %}
+            <!--/内容-->
+            <div><a href="javascript:;" class="gotop" style="display:none;"></a></div>
+        </div>
+        <!--右边模块-->
+        {% block aside %}
+
+        {% endblock %}
+        <!--/右边模块-->
+        {% block base_footer %}
+            <footer class="footer">
+                ©2014-2016 杭州阔知网络科技有限公司 All Rights Reserved. 浙ICP备13006852号-1
+            </footer>
+        {% endblock %}
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {% for path in script()  %}
+    <script src="{{ asset( 'assets/' ~ path) }}"></script>
+    {% endfor %}
+    <script src="{{ asset('bundles/app/js/modal.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/default.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/follow.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/picture.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/knowledge/comment.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/knowledge/admin-operate.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/base.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/knowledge.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/todolist.js') }}"></script>
+{% endblock %}
+{% block private_javascript %}
+
+{% endblock %}
+</body>
+</html>

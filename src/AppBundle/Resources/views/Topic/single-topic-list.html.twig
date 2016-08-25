@@ -1,0 +1,25 @@
+<div class="news-list">
+  <div class="news-info col-xs-12 col-sm-12 col-md-11">
+    <ul>
+      <li class="pull-left">
+        <h4>
+          <a href="{{path('topic_knowledge',{id:topic.id, name:topic.name })}}">{{ topic.name|slice(0,20)}}</a>
+          {% if myFollow.newKnowledgeNum is defined and myFollow.newKnowledgeNum  %}
+            <span class="badge">{{ myFollow.newKnowledgeNum }}</span>
+          {% endif %}
+        </h4>
+      </li>
+      <li class="pull-right;">
+        <span class="look">
+          <a class="pull-right" id="follow-btn" data-url="{{ path('topic_follow', {id:topic.id}) }}" {% if topic.hasFollow is defined and topic.hasFollow%}style="display:none"{% endif %}><i class="fa fa-fw fa-heart-o"></i><span>{{ topic.followNum }}</span></a>
+          <a class="pull-right" id="unfollow-btn" data-url="{{ path('topic_unfollow', {id:topic.id}) }}" {% if topic.hasFollow is defined and not topic.hasFollow%}style="display:none"{% endif %}><i class="fa fa-fw fa-heart"></i><span>{{ topic.followNum }}</span></a>
+        </span>
+      </li>
+      <li class="pull-right" style="padding-right: 30px;">
+         <span style="color: #AAA;font-size: 12px;">
+            创建日期:{{ topic.createdTime |date('Y年m月d日') }}
+          </span>
+      </li>
+    </ul>
+  </div>
+</div>

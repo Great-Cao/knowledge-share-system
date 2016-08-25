@@ -1,0 +1,91 @@
+<div class="news-list">
+  <ol class="breadcrumb">
+     <li>
+       <a href="{{path('homepage')}}">最新知识</a>
+     </li>
+     <li class="active">{{knowledge.title|slice(0,20)}}</li>
+  </ol>
+  <div class="news-info col-xs-12 col-sm-12 col-md-11">
+    <div>
+      <div style="padding-left:19px; height:50px;line-height:50px;">
+        <a href="javascript:;" target="_blank" style="color: #0c0c0c;font-size: 18px;">{{ knowledge.title|slice(0,20)}}</a>
+        <div class="pull-right">
+          <button id="learn-btn" class="btn btn-primary finish-btn" {% if hasLearned %}style="display:none"{% endif %} data-url="{{path('knowledge_finish_learn',{id:knowledge.id})}}">
+            <span class="glyphicon glyphicon-unchecked"></span>
+            待学习
+          </button>
+
+          <button id="finish-btn" class="btn btn-primary finish-btn success" {% if not hasLearned %}style="display:none"{% endif %} disabled="disabled">
+            <span class="glyphicon glyphicon-check"></span>
+            学过了
+          </button>
+        </div>
+      </div>
+      <p class="text" style="padding-left:19px;"> <i class="fa fa-fw fa-book"></i>
+        摘要：{{knowledge.summary}}
+      </p>
+      <p>
+        <span class="name">
+          <a href="{{ path('user_page',{userId:user.id}) }}"  rel="author"> <i class="fa fa-fw fa-user"></i>
+            {{ user.username }}
+          </a>
+        </span>
+        <span class="identity"></span>
+        {% if userRole.roles == 'admin' %}
+        <span style="float:right">
+          <a class="btn btn-primary fa fa-edit admin-edit-btn" data-url="{{path('admin_knowledge_edit',{id:knowledge.id})}}"></a>
+          <a class="btn btn-default fa fa-trash admin-delete-btn" data-url="{{path('admin_knowledge_delete',{id: knowledge.id})}}"></a>
+        </span>
+        {% endif %}
+      </p>
+    </div>
+    <p style="padding-left:19px;">
+      <i class="fa fa-fw  fa-mail-forward"></i>
+      <a href="{% if knowledge.type == 'link' %}{{ knowledge.content  }} {% else %} {{path('knowledge_download_file',{id:knowledge.id})}} {% endif %}">{{ knowledge.content  }}</a>
+    </p>
+    <div class="news_bot col-sm-7 col-md-8" style="padding-left:19px;margin-top: 15px;;">
+      <span class="tags visible-lg visible-md">
+      {% for tag in singleTagIds %}
+        <span class="tags visible-lg visible-md">
+          <a href="javascript:;">{{tag.text}}</a>
+        </span>
+      {% endfor %}
+      </span>
+    </div>
+    <br>
+      <div style="padding-left:19px;margin-top: 30px;">
+        <a class="collect-btn" data-img="{% if app.user %}{{ asset(app.user.imageUrl) }}{% endif %}" data-url="{{ path('knowledge_favorite', {id:knowledge.id}) }}" {% if knowledge.isFavorited %} style="display:none"{% endif %}>
+          <i class="fa fa-fw fa-star-o"></i>
+          <span class="collect-num">{{knowledge.favoriteNum}}</span>
+        </a>
+        <a class="uncollect-btn"  data-url="{{ path('knowledge_unfavorite', {id:knowledge.id}) }}" {% if not knowledge.isFavorited   %}style="display:none"{% endif %}>
+          <i class="fa fa-fw fa-star"></i>
+          <span class="uncollect-num" >{{knowledge.favoriteNum}}</span>
+        </a>
+        <ul class="users-list clearfix" id="favorite-list">
+        {% for favoriteUser in favoriteUsers %}
+          <li>
+            <a href="{{ path('user_page',{userId:favoriteUser.id}) }}" style="margin-left: 10px;"><img class="img-circle img-sm" src="{{ asset(favoriteUser.imageUrl) }}" alt="User Image" title="{{favoriteUser.username}}"></a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div style="padding-left:19px;margin-top: 15px;" id="likeMargin">
+        <a class="like-btn" data-img="{% if app.user %}{{ asset(app.user.imageUrl) }}{% endif %}" data-url="{{ path('knowledge_like', {id:knowledge.id}) }}" {% if knowledge.isLiked %}style="display:none"{% endif %}>
+          <i class="fa fa-fw fa-thumbs-o-up"></i>
+          <span class="like-num">{{knowledge.likeNum}}</span>
+        </a >
+        <a class="dislike-btn"  data-url="{{ path('knowledge_dislike', {id:knowledge.id}) }}" {% if not knowledge.isLiked   %}style="display:none"{% endif %}>
+          <i class="fa fa-fw fa-thumbs-up"></i>
+          <span class="dislike-num" >{{knowledge.likeNum}}</span>
+        </a>
+        <ul class="users-list clearfix" id="like-list">
+        {% for likeUser in likeUsers %}
+          <li>
+            <a href="{{ path('user_page',{userId:likeUser.id}) }}" style="margin-left: 10px;"><img class="img-circle img-sm" src="{{ asset(likeUser.imageUrl) }}" alt="User Image" title="{{likeUser.username}}"></a>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+  </div>
+</div>

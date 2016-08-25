@@ -1,0 +1,15 @@
+.select-topic
+{
+    height:30px;
+    line-height: 30px;
+    margin-top: 10px;
+}
+.box
+.detail-date, .detail-username
+{
+    margin-right: 20px;
+}
+.box .box-body p
+{
+    text-indent:50px;
+}

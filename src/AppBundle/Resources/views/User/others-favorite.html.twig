@@ -1,0 +1,29 @@
+<div class="news-list">
+  <div class="news-info col-xs-12 col-sm-12 col-md-11">
+    <dl>
+      <dt>
+        <a href="{{path('knowledge_detail',{id:knowledge.id})}}" target="_blank" ><i class="{% if knowledge.type == 'link' %}fa fa-link{% else %}fa fa-sticky-note-o{% endif %}"></i>&nbsp;{{knowledge.title}}
+        </a>
+      </dt>
+      <dd class="text" style="padding-left:19px;"><i class="fa fa-fw fa-book"></i>摘要：{{knowledge.summary}}</dd>
+      <dd>
+        <span class="name">
+          <a href="{{ path('user_page',{userId:knowledge.userId}) }}"  rel="author" style="padding-top:6px;padding-bottom:6px;"><i class="fa fa-fw fa-user"></i>{{user.username}}</a>
+        </span>
+        <span class="time" style="padding-top:6px;padding-bottom:6px">创建日期:{{knowledge.createdTime |date('Y年m月d日') }}</span>
+      </dd>
+    </dl>
+    <div class="news_bot col-sm-7 col-md-8" style="padding-left:19px;">
+      {% for tag in knowledgeTag %}
+        <span class="tags visible-lg visible-md">
+          <a href="javascript:;">{{tag.text}}</a>
+        </span>
+      {% endfor %}
+    <div class="pull-right" style="padding-right:10px;padding-top:5px;">
+        <span style="color:#b8b8b8">
+          <i class="fa fa-fw fa-eye"></i>{{knowledge.viewNum}}
+        </span>
+    </div>
+    </div>
+  </div>
+</div>

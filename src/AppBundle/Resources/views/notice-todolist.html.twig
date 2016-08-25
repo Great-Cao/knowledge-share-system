@@ -1,0 +1,5 @@
+{% if toReadListNum is defined and toReadListNum > 0 %}
+    <a href="{{path('my_knowledge_share_todolist')}}"> 
+        <strong>待读列表中还有{{toReadListNum}}条知识未学习</strong>
+    </a>
+{% endif %}
